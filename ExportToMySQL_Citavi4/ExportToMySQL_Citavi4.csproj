@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7ABF8954-2577-4895-97D1-F829CAAA142A}</ProjectGuid>
+    <ProjectGuid>{325D2646-B7B6-48B1-8D25-92BCEDCB5E9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ExportToMySQL</RootNamespace>
@@ -89,43 +89,40 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportToMySQL.cs" />
-    <Compile Include="FilterBox.cs">
+    <Compile Include="..\ExportToMySQL\FilterBox.cs">
+      <Link>FilterBox.cs</Link>
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FilterBox.Designer.cs">
+    <Compile Include="..\ExportToMySQL\FilterBox.designer.cs">
+      <Link>FilterBox.designer.cs</Link>
       <DependentUpon>FilterBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="MysqlExportMain.cs">
+    <Compile Include="..\ExportToMySQL\MysqlExportMain.cs">
+      <Link>MysqlExportMain.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MysqlExportMain.Designer.cs">
+    <Compile Include="..\ExportToMySQL\MysqlExportMain.designer.cs">
+      <Link>MysqlExportMain.designer.cs</Link>
       <DependentUpon>MysqlExportMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\ExportToMySQL\settings.cs">
+      <Link>settings.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\ExportToMySQL\settings.designer.cs">
+      <Link>settings.designer.cs</Link>
+      <DependentUpon>settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\ExportToMySQL\Settings1.cs">
+      <Link>Settings1.cs</Link>
+    </Compile>
+    <Compile Include="ExportToMySQL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="settings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="settings.Designer.cs">
-      <DependentUpon>settings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Settings1.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="FilterBox.resx">
-      <DependentUpon>FilterBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MysqlExportMain.resx">
-      <DependentUpon>MysqlExportMain.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="settings.resx">
-      <DependentUpon>settings.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -133,6 +130,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\ExportToMySQL\FilterBox.resx">
+      <Link>FilterBox.resx</Link>
+      <DependentUpon>FilterBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ExportToMySQL\MysqlExportMain.resx">
+      <Link>MysqlExportMain.resx</Link>
+      <DependentUpon>MysqlExportMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\ExportToMySQL\settings.resx">
+      <Link>settings.resx</Link>
+      <DependentUpon>settings.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
