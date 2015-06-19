@@ -89,6 +89,7 @@
             this.textBoxFilter.Size = new System.Drawing.Size(203, 20);
             this.textBoxFilter.TabIndex = 5;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxCatFilter_TextChanged);
+            this.textBoxFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFilter_KeyDown);
             // 
             // label1
             // 
@@ -110,6 +111,7 @@
             this.listBoxAllItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxAllItems.Size = new System.Drawing.Size(203, 199);
             this.listBoxAllItems.TabIndex = 0;
+            this.listBoxAllItems.DoubleClick += new System.EventHandler(this.listBoxAllItems_DoubleClick);
             // 
             // listBoxSelectedItems
             // 

@@ -98,7 +98,7 @@ namespace ExportToMySQL
                 }
             }
             pauseUpdate = false;
-                getFilteredReferences();
+            getFilteredReferences();
         }
 
         bool saveSettings()
@@ -258,7 +258,6 @@ namespace ExportToMySQL
                             }
                         }
                     }
-                    nr["Category"] = cat.Name;
                 }
             }
             FilteredReferences.EndLoadData();
@@ -321,8 +320,12 @@ namespace ExportToMySQL
 
                     if (!noChange)
                     {
-                        MySqlCommand del = new MySqlCommand(@"TRUNCATE TABLE " + sqlconn.Database + "." + table, connection);
-                        del.ExecuteNonQuery();
+                        //MySqlCommand del = new MySqlCommand(@"TRUNCATE TABLE " + sqlconn.Database + "." + table, connection);
+                        //del.ExecuteNonQuery();
+                        if (MessageBox.Show("Tabelle " + table + " in Datenbank " + sqlconn.Database + " wirklich überschreiben?", "Tabelle überschreiben...", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                            return false;
+                        initMysqlTable(connection, table).ExecuteNonQuery();
+
 
                         MySqlDataAdapter adapter = new MySqlDataAdapter(@"SELECT * FROM " + sqlconn.Database + "." + table, connection);
                         MySqlCommandBuilder builder = new MySqlCommandBuilder(adapter);
@@ -351,6 +354,25 @@ namespace ExportToMySQL
             }
             catch { }
             return true;
+        }
+
+        private MySqlCommand initMysqlTable(MySqlConnection sqlconn, string table)
+        {
+            string tabs = "";
+            foreach (PropertyInfo p in filterBoxFields.Selection)
+            {
+                tabs += @"`" + p.Name + "` TEXT,";
+            }
+            string id = "`" + sqlconn.Database + "`.`" + table + "`";
+            string strCreate = @"DROP TABLE IF EXISTS " + id + "; " +
+                             "CREATE TABLE IF NOT EXISTS " + id + " (" +
+                             "`rowID` int NOT NULL AUTO_INCREMENT, " +
+                             tabs +
+                             "PRIMARY KEY(rowID));";
+
+            MySqlCommand cmd = new MySqlCommand(strCreate, sqlconn);
+
+            return cmd;
         }
 
         private void onMysqlSettingsOpenClick(object sender, EventArgs e)

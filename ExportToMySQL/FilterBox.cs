@@ -74,11 +74,21 @@ namespace ExportToMySQL
 
         private void textBoxCatFilter_TextChanged(object sender, EventArgs e)
         {
-            listBoxAllItems.DataSource = _itemlist.Where(item => item.ToString().ToUpper().Contains(textBoxFilter.Text.ToUpper())).ToList();
+            List<object> tmplist =_itemlist.Where(item => item.ToString().ToUpper().Contains(textBoxFilter.Text.ToUpper())).ToList();
+            tmplist = tmplist.OrderBy(each => Levenshtein.CalculateDistance(each.ToString().ToUpper(), textBoxFilter.Text.ToUpper())).ToList();
+            listBoxAllItems.DataSource = tmplist;
             setDisplayMember();
+            if (tmplist.Count > 0)
+                listBoxAllItems.SelectedIndex = 0;
+            
         }
 
         private void buttonAddCategory_Click(object sender, EventArgs e)
+        {
+            AddSelectedCategories();
+        }
+
+        private void AddSelectedCategories()
         {
             listBoxSelectedItems.ClearSelected();
             foreach (object cat in listBoxAllItems.SelectedItems)
@@ -100,10 +110,70 @@ namespace ExportToMySQL
         {
             Selection.Clear();
         }
+
+
+        private void textBoxFilter_KeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if (e.KeyCode == Keys.Return)
+            {
+                AddSelectedCategories();
+                e.Handled = true;
+            }
+            e.Handled = false;
+        }
+
+        private void listBoxAllItems_DoubleClick(object sender, EventArgs e)
+        {
+            AddSelectedCategories();
+        }
     }
 
     public class FilterBoxChangedEventArgs : EventArgs
     {
 
+    }
+
+    public static class Levenshtein
+    {
+        public static int CalculateDistance(string source, string target)
+        {
+            if (String.IsNullOrEmpty(source))
+            {
+                if (String.IsNullOrEmpty(target)) return 0;
+                return target.Length;
+            }
+            if (String.IsNullOrEmpty(target)) return source.Length;
+
+            if (source.Length > target.Length)
+            {
+                var temp = target;
+                target = source;
+                source = temp;
+            }
+
+            var m = target.Length;
+            var n = source.Length;
+            var distance = new int[2, m + 1];
+            // Initialize the distance 'matrix'
+            for (var j = 1; j <= m; j++) distance[0, j] = j;
+
+            var currentRow = 0;
+            for (var i = 1; i <= n; ++i)
+            {
+                currentRow = i & 1;
+                distance[currentRow, 0] = i;
+                var previousRow = currentRow ^ 1;
+                for (var j = 1; j <= m; j++)
+                {
+                    var cost = (target[j - 1] == source[i - 1] ? 0 : 1);
+                    distance[currentRow, j] = Math.Min(Math.Min(
+                                distance[previousRow, j] + 1,
+                                distance[currentRow, j - 1] + 1),
+                                distance[previousRow, j - 1] + cost);
+                }
+            }
+            return distance[currentRow, m];
+        }
     }
 }
