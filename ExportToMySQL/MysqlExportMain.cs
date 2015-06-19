@@ -97,6 +97,11 @@ namespace ExportToMySQL
                         filterBoxLocation.Selection.Add(li);
                 }
             }
+
+            filterBoxCategories.selectAll = Properties.Settings.Default.FilterCatsAll;
+            filterBoxFields.selectAll = Properties.Settings.Default.FilterFieldsAll;
+            filterBoxLocation.selectAll = Properties.Settings.Default.FilterLocationsAll;
+
             pauseUpdate = false;
             getFilteredReferences();
         }
@@ -124,8 +129,12 @@ namespace ExportToMySQL
             }
             Properties.Settings.Default.FilterLocations = fields;
 
+            Properties.Settings.Default.FilterCatsAll = filterBoxCategories.selectAll;
+            Properties.Settings.Default.FilterFieldsAll = filterBoxFields.selectAll;
+            Properties.Settings.Default.FilterLocationsAll = filterBoxLocation.selectAll;
+
             Properties.Settings.Default.Save();
-            //debugOutput("Saved");
+
             return true;
         }
 

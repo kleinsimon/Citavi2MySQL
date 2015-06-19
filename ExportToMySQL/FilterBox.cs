@@ -15,6 +15,19 @@ namespace ExportToMySQL
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
+        private bool _selectAll = false;
+        public bool selectAll
+        {
+            get { return _selectAll; }
+            set
+            {
+                _selectAll = value;
+                checkBoxAll.Checked = value;
+                toggleControls(!value);
+                if (OnSelectionChanged != null)
+                    OnSelectionChanged(this, new FilterBoxChangedEventArgs());
+            }
+        }
         public IEnumerable<object> ItemList
         {
             get { return _itemlist; }
@@ -24,9 +37,18 @@ namespace ExportToMySQL
                 listBoxAllItems.DataSource = _itemlist;
             }
         }
-        public BindingList<object> Selection
+        public List<object> Selection
         {
-            get { return _selection; }
+            get
+            {
+                if (!_selectAll)
+                    if (_selection != null)
+                        return _selection.ToList<object>();
+                    else
+                        return null;
+                else
+                    return _itemlist;
+            }
         }
         public string Title
         {
@@ -47,7 +69,6 @@ namespace ExportToMySQL
         }
         public delegate void FilterBoxChangedEventHandler(object source, FilterBoxChangedEventArgs e);
         public event FilterBoxChangedEventHandler OnSelectionChanged;
-
 
         public FilterBox()
         {
@@ -74,13 +95,13 @@ namespace ExportToMySQL
 
         private void textBoxCatFilter_TextChanged(object sender, EventArgs e)
         {
-            List<object> tmplist =_itemlist.Where(item => item.ToString().ToUpper().Contains(textBoxFilter.Text.ToUpper())).ToList();
+            List<object> tmplist = _itemlist.Where(item => item.ToString().ToUpper().Contains(textBoxFilter.Text.ToUpper())).ToList();
             tmplist = tmplist.OrderBy(each => Levenshtein.CalculateDistance(each.ToString().ToUpper(), textBoxFilter.Text.ToUpper())).ToList();
             listBoxAllItems.DataSource = tmplist;
             setDisplayMember();
             if (tmplist.Count > 0)
                 listBoxAllItems.SelectedIndex = 0;
-            
+
         }
 
         private void buttonAddCategory_Click(object sender, EventArgs e)
@@ -93,8 +114,8 @@ namespace ExportToMySQL
             listBoxSelectedItems.ClearSelected();
             foreach (object cat in listBoxAllItems.SelectedItems)
             {
-                if (Selection.Contains(cat)) continue;
-                Selection.Add(cat);
+                if (_selection.Contains(cat)) continue;
+                _selection.Add(cat);
                 listBoxSelectedItems.SelectedItems.Add(cat);
             }
         }
@@ -102,13 +123,13 @@ namespace ExportToMySQL
         private void buttonRemoveCategory_Click(object sender, EventArgs e)
         {
             int tmp = listBoxSelectedItems.SelectedIndex;
-            Selection.RemoveAll(item => listBoxSelectedItems.SelectedItems.Contains(item));
-            listBoxSelectedItems.SelectedIndex = Math.Min(tmp, Selection.Count - 1);
+            _selection.RemoveAll(item => listBoxSelectedItems.SelectedItems.Contains(item));
+            listBoxSelectedItems.SelectedIndex = Math.Min(tmp, _selection.Count - 1);
         }
 
         private void buttonClearCategories_Click(object sender, EventArgs e)
         {
-            Selection.Clear();
+            _selection.Clear();
         }
 
 
@@ -126,6 +147,21 @@ namespace ExportToMySQL
         private void listBoxAllItems_DoubleClick(object sender, EventArgs e)
         {
             AddSelectedCategories();
+        }
+
+        private void toggleControls(bool Enabled)
+        {
+            listBoxAllItems.Enabled = Enabled;
+            listBoxSelectedItems.Enabled = Enabled;
+            textBoxFilter.Enabled = Enabled;
+            buttonAddCategory.Enabled = Enabled;
+            buttonClearCategories.Enabled = Enabled;
+            buttonRemoveCategory.Enabled = Enabled;
+        }
+
+        private void checkBoxAll_CheckedChanged(object sender, EventArgs e)
+        {
+            selectAll = checkBoxAll.Checked;
         }
     }
 

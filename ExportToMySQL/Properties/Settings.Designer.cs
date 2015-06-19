@@ -235,5 +235,41 @@ namespace ExportToMySQL.Properties {
                 this["FilterLocations"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterCatsAll {
+            get {
+                return ((bool)(this["FilterCatsAll"]));
+            }
+            set {
+                this["FilterCatsAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterFieldsAll {
+            get {
+                return ((bool)(this["FilterFieldsAll"]));
+            }
+            set {
+                this["FilterFieldsAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterLocationsAll {
+            get {
+                return ((bool)(this["FilterLocationsAll"]));
+            }
+            set {
+                this["FilterLocationsAll"] = value;
+            }
+        }
     }
 }

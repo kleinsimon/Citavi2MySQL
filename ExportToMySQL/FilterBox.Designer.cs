@@ -35,6 +35,7 @@
             this.listBoxAllItems = new System.Windows.Forms.ListBox();
             this.listBoxSelectedItems = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkBoxAll = new System.Windows.Forms.CheckBox();
             this.buttonAddCategory = new System.Windows.Forms.Button();
             this.buttonRemoveCategory = new System.Windows.Forms.Button();
             this.buttonClearCategories = new System.Windows.Forms.Button();
@@ -66,6 +67,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.checkBoxAll, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.textBoxFilter, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.listBoxAllItems, 0, 1);
@@ -86,7 +88,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFilter.Location = new System.Drawing.Point(3, 3);
             this.textBoxFilter.Name = "textBoxFilter";
-            this.textBoxFilter.Size = new System.Drawing.Size(203, 20);
+            this.textBoxFilter.Size = new System.Drawing.Size(202, 20);
             this.textBoxFilter.TabIndex = 5;
             this.textBoxFilter.TextChanged += new System.EventHandler(this.textBoxCatFilter_TextChanged);
             this.textBoxFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxFilter_KeyDown);
@@ -94,7 +96,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(259, 0);
+            this.label1.Location = new System.Drawing.Point(260, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 13);
             this.label1.TabIndex = 4;
@@ -109,7 +111,7 @@
             this.listBoxAllItems.Location = new System.Drawing.Point(3, 29);
             this.listBoxAllItems.Name = "listBoxAllItems";
             this.listBoxAllItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxAllItems.Size = new System.Drawing.Size(203, 199);
+            this.listBoxAllItems.Size = new System.Drawing.Size(202, 199);
             this.listBoxAllItems.TabIndex = 0;
             this.listBoxAllItems.DoubleClick += new System.EventHandler(this.listBoxAllItems_DoubleClick);
             // 
@@ -119,10 +121,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxSelectedItems.FormattingEnabled = true;
-            this.listBoxSelectedItems.Location = new System.Drawing.Point(259, 29);
+            this.listBoxSelectedItems.Location = new System.Drawing.Point(260, 29);
             this.listBoxSelectedItems.Name = "listBoxSelectedItems";
             this.listBoxSelectedItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBoxSelectedItems.Size = new System.Drawing.Size(204, 199);
+            this.listBoxSelectedItems.Size = new System.Drawing.Size(203, 199);
             this.listBoxSelectedItems.TabIndex = 2;
             // 
             // flowLayoutPanel1
@@ -131,11 +133,24 @@
             this.flowLayoutPanel1.Controls.Add(this.buttonAddCategory);
             this.flowLayoutPanel1.Controls.Add(this.buttonRemoveCategory);
             this.flowLayoutPanel1.Controls.Add(this.buttonClearCategories);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(212, 29);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(211, 29);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(41, 87);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(43, 202);
             this.flowLayoutPanel1.TabIndex = 6;
+            // 
+            // checkBoxAll
+            // 
+            this.checkBoxAll.AutoSize = true;
+            this.checkBoxAll.Location = new System.Drawing.Point(211, 3);
+            this.checkBoxAll.Name = "checkBoxAll";
+            this.checkBoxAll.Size = new System.Drawing.Size(43, 17);
+            this.checkBoxAll.TabIndex = 8;
+            this.checkBoxAll.Text = "Alle";
+            this.checkBoxAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxAll.UseVisualStyleBackColor = true;
+            this.checkBoxAll.CheckedChanged += new System.EventHandler(this.checkBoxAll_CheckedChanged);
             // 
             // buttonAddCategory
             // 
@@ -194,5 +209,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.CheckBox checkBoxAll;
     }
 }
