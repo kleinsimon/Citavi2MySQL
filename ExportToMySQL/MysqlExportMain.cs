@@ -214,7 +214,6 @@ namespace ExportToMySQL
                         else if (p.PropertyType == typeof(ReferenceLocationCollection))
                         {
                             ReferenceLocationCollection ptmp = (ReferenceLocationCollection)property;
-
                             foreach (Location l in ptmp)
                             {
                                 if (filterBoxLocation.Selection.Contains(l.Library))
@@ -225,11 +224,6 @@ namespace ExportToMySQL
                                 }
                             }
                         }
-
-                        //else if (p.PropertyType == typeof(ReferenceType))
-                        //{
-                        //    nr[p.Name] = ((ReferenceType)property).Name;
-                        //}
 
                         else if (p.PropertyType == typeof(Periodical))
                         {

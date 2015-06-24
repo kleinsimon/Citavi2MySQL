@@ -15,13 +15,11 @@ namespace ExportToMySQL
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
-        private bool _selectAll = false;
         public bool selectAll
         {
-            get { return _selectAll; }
+            get { return checkBoxAll.Checked; }
             set
             {
-                _selectAll = value;
                 checkBoxAll.Checked = value;
                 toggleControls(!value);
                 if (OnSelectionChanged != null)
@@ -41,7 +39,7 @@ namespace ExportToMySQL
         {
             get
             {
-                if (!_selectAll)
+                if (!selectAll)
                     if (_selection != null)
                         return _selection.ToList<object>();
                     else
@@ -95,11 +93,24 @@ namespace ExportToMySQL
 
         private void textBoxCatFilter_TextChanged(object sender, EventArgs e)
         {
-            List<object> tmplist = _itemlist.Where(item => item.ToString().ToUpper().Contains(textBoxFilter.Text.ToUpper())).ToList();
-            tmplist = tmplist.OrderBy(each => Levenshtein.CalculateDistance(each.ToString().ToUpper(), textBoxFilter.Text.ToUpper())).ToList();
-            listBoxAllItems.DataSource = tmplist;
+            string filter = textBoxFilter.Text.ToUpper();
+
+            if (filter == string.Empty || filter.Length < 2)
+            {
+                listBoxAllItems.DataSource = _itemlist;
+                return;
+            }
+
+            var query = from item in _itemlist
+                        let itemText=item.ToString().ToUpper()
+                        where itemText.Contains(filter)
+                        orderby Levenshtein.CalculateDistance(itemText, filter)
+                        select item;
+
+            listBoxAllItems.DataSource = query.ToList();
             setDisplayMember();
-            if (tmplist.Count > 0)
+
+            if (listBoxAllItems.Items.Count > 0)
                 listBoxAllItems.SelectedIndex = 0;
 
         }

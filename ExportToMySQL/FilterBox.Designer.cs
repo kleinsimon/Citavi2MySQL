@@ -30,12 +30,12 @@
         {
             this.groupBoxAll = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkBoxAll = new System.Windows.Forms.CheckBox();
             this.textBoxFilter = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listBoxAllItems = new System.Windows.Forms.ListBox();
             this.listBoxSelectedItems = new System.Windows.Forms.ListBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.checkBoxAll = new System.Windows.Forms.CheckBox();
             this.buttonAddCategory = new System.Windows.Forms.Button();
             this.buttonRemoveCategory = new System.Windows.Forms.Button();
             this.buttonClearCategories = new System.Windows.Forms.Button();
@@ -81,6 +81,18 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(466, 234);
             this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // checkBoxAll
+            // 
+            this.checkBoxAll.AutoSize = true;
+            this.checkBoxAll.Location = new System.Drawing.Point(211, 3);
+            this.checkBoxAll.Name = "checkBoxAll";
+            this.checkBoxAll.Size = new System.Drawing.Size(43, 17);
+            this.checkBoxAll.TabIndex = 8;
+            this.checkBoxAll.Text = "Alle";
+            this.checkBoxAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBoxAll.UseVisualStyleBackColor = true;
+            this.checkBoxAll.CheckedChanged += new System.EventHandler(this.checkBoxAll_CheckedChanged);
             // 
             // textBoxFilter
             // 
@@ -139,18 +151,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(43, 202);
             this.flowLayoutPanel1.TabIndex = 6;
-            // 
-            // checkBoxAll
-            // 
-            this.checkBoxAll.AutoSize = true;
-            this.checkBoxAll.Location = new System.Drawing.Point(211, 3);
-            this.checkBoxAll.Name = "checkBoxAll";
-            this.checkBoxAll.Size = new System.Drawing.Size(43, 17);
-            this.checkBoxAll.TabIndex = 8;
-            this.checkBoxAll.Text = "Alle";
-            this.checkBoxAll.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBoxAll.UseVisualStyleBackColor = true;
-            this.checkBoxAll.CheckedChanged += new System.EventHandler(this.checkBoxAll_CheckedChanged);
             // 
             // buttonAddCategory
             // 
