@@ -39,10 +39,10 @@
             this.einstellungenExportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenImportierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.saveFileDialogSettings = new System.Windows.Forms.SaveFileDialog();
             this.filterBoxFields = new ExportToMySQL.FilterBox();
             this.filterBoxLocation = new ExportToMySQL.FilterBox();
             this.filterBoxCategories = new ExportToMySQL.FilterBox();
+            this.saveFileDialogSettings = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogSettings = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReferences)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -151,12 +151,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 635);
             this.tableLayoutPanel1.TabIndex = 15;
             // 
-            // saveFileDialogSettings
-            // 
-            this.saveFileDialogSettings.DefaultExt = "xml";
-            this.saveFileDialogSettings.Filter = "XML-Dateien|*.xml";
-            this.saveFileDialogSettings.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
-            // 
             // filterBoxFields
             // 
             this.filterBoxFields.DisplayMember = "";
@@ -164,6 +158,7 @@
             this.filterBoxFields.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxFields.ItemList")));
             this.filterBoxFields.Location = new System.Drawing.Point(641, 3);
             this.filterBoxFields.Name = "filterBoxFields";
+            this.filterBoxFields.selectAll = false;
             this.filterBoxFields.Size = new System.Drawing.Size(325, 209);
             this.filterBoxFields.TabIndex = 12;
             this.filterBoxFields.Title = "Exportierte Spalten";
@@ -175,6 +170,7 @@
             this.filterBoxLocation.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxLocation.ItemList")));
             this.filterBoxLocation.Location = new System.Drawing.Point(322, 3);
             this.filterBoxLocation.Name = "filterBoxLocation";
+            this.filterBoxLocation.selectAll = false;
             this.filterBoxLocation.Size = new System.Drawing.Size(313, 209);
             this.filterBoxLocation.TabIndex = 14;
             this.filterBoxLocation.Title = "Exportierte Standorte";
@@ -186,9 +182,16 @@
             this.filterBoxCategories.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxCategories.ItemList")));
             this.filterBoxCategories.Location = new System.Drawing.Point(3, 3);
             this.filterBoxCategories.Name = "filterBoxCategories";
+            this.filterBoxCategories.selectAll = false;
             this.filterBoxCategories.Size = new System.Drawing.Size(313, 209);
             this.filterBoxCategories.TabIndex = 11;
             this.filterBoxCategories.Title = "Kategorien Filter";
+            // 
+            // saveFileDialogSettings
+            // 
+            this.saveFileDialogSettings.DefaultExt = "xml";
+            this.saveFileDialogSettings.Filter = "XML-Dateien|*.xml";
+            this.saveFileDialogSettings.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
             // openFileDialogSettings
             // 

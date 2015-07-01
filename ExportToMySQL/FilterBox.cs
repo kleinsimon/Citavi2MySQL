@@ -35,17 +35,17 @@ namespace ExportToMySQL
                 listBoxAllItems.DataSource = _itemlist;
             }
         }
-        public List<object> Selection
+        public BindingList<object> Selection
         {
             get
             {
                 if (!selectAll)
                     if (_selection != null)
-                        return _selection.ToList<object>();
+                        return _selection;
                     else
                         return null;
                 else
-                    return _itemlist;
+                    return new BindingList<object>(_itemlist);
             }
         }
         public string Title

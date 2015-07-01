@@ -271,5 +271,17 @@ namespace ExportToMySQL.Properties {
                 this["FilterLocationsAll"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool upgradeNeeded {
+            get {
+                return ((bool)(this["upgradeNeeded"]));
+            }
+            set {
+                this["upgradeNeeded"] = value;
+            }
+        }
     }
 }

@@ -94,7 +94,7 @@
             this.textBoxDB.Location = new System.Drawing.Point(90, 84);
             this.textBoxDB.Name = "textBoxDB";
             this.textBoxDB.Size = new System.Drawing.Size(100, 20);
-            this.textBoxDB.TabIndex = 5;
+            this.textBoxDB.TabIndex = 3;
             // 
             // label3
             // 
@@ -110,7 +110,7 @@
             this.textBoxUser.Location = new System.Drawing.Point(90, 135);
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(100, 20);
-            this.textBoxUser.TabIndex = 3;
+            this.textBoxUser.TabIndex = 5;
             // 
             // label4
             // 
@@ -126,7 +126,7 @@
             this.textBoxPassw.Location = new System.Drawing.Point(90, 161);
             this.textBoxPassw.Name = "textBoxPassw";
             this.textBoxPassw.Size = new System.Drawing.Size(100, 20);
-            this.textBoxPassw.TabIndex = 4;
+            this.textBoxPassw.TabIndex = 6;
             // 
             // label5
             // 
@@ -161,7 +161,7 @@
             this.textBoxTable.Location = new System.Drawing.Point(90, 110);
             this.textBoxTable.Name = "textBoxTable";
             this.textBoxTable.Size = new System.Drawing.Size(100, 20);
-            this.textBoxTable.TabIndex = 6;
+            this.textBoxTable.TabIndex = 4;
             // 
             // groupBox1
             // 

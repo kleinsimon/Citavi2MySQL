@@ -68,6 +68,13 @@ namespace ExportToMySQL
         void loadSettings()
         {
             pauseUpdate = true;
+
+            if (Properties.Settings.Default.upgradeNeeded)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.upgradeNeeded = false;
+            }
+
             if (Properties.Settings.Default.FilterCats != null)
             {
                 foreach (string c in Properties.Settings.Default.FilterCats)
@@ -339,7 +346,7 @@ namespace ExportToMySQL
 
                         adapter.Update(FilteredReferences);
                     }
-                    //debugOutput("Successful", 1);
+                    debugOutput("Successful", 1);
                 }
                 catch (Exception ex)
                 {
