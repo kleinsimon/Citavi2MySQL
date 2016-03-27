@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using System.Globalization;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Configuration;
@@ -29,12 +25,17 @@ namespace ExportToMySQL
         MySqlConnectionStringBuilder sqlconn = new MySqlConnectionStringBuilder();
         Type[] allowed = { typeof(string), typeof(ReferencePersonCollection), typeof(ReferenceLocationCollection), typeof(ReferenceType), typeof(Periodical) };
         bool pauseUpdate = false;
+        bool silentMode = false;
+        int debugLevel = 1;
+        int majorVersion = 0;
 
-        public MysqlExportMain(MainForm Form)
+        public MysqlExportMain(MainForm Form, bool silentmode = false)
         {
             InitializeComponent();
             SuspendLayout();
             CitaviForm = Form;
+            silentMode = silentmode;
+            majorVersion = int.Parse(CitaviForm.ProductVersion.Split('.')[0]);
 
             foreach (PropertyInfo p in typeof(Reference).GetProperties())
             {
@@ -49,9 +50,16 @@ namespace ExportToMySQL
             filterBoxCategories.ItemList = CitaviForm.Project.AllCategories;
             filterBoxCategories.DisplayMember = "FullName";
             filterBoxCategories.OnSelectionChanged += filterBoxCategories_OnSelectionChanged;
+#if CITAVI5
             filterBoxGroups.ItemList = CitaviForm.Project.Groups;
             filterBoxGroups.DisplayMember = "FullName";
             filterBoxGroups.OnSelectionChanged += FilterBoxGroups_OnSelectionChanged;
+#endif
+#if CITAVI4
+            filterBoxGroups.Disabled = true;
+            //filterBoxGroups.Dispose();
+            //tableLayoutPanel1.SetColumn(filterBoxLocation);
+#endif
             filterBoxFields.ItemList = ReferenceFields;
             filterBoxFields.DisplayMember = "Name";
             filterBoxFields.OnSelectionChanged += filterBoxFields_OnSelectionChanged;
@@ -66,6 +74,10 @@ namespace ExportToMySQL
             updateFields();
 
             ResumeLayout();
+            if (silentMode)
+            {
+                updateTable();
+            }
         }
 
         void loadSettings()
@@ -87,7 +99,7 @@ namespace ExportToMySQL
                         filterBoxCategories.Selection.Add(ci);
                 }
             }
-
+#if CITAVI5
             if (Properties.Settings.Default.FilterGroups != null)
             {
                 foreach (string c in Properties.Settings.Default.FilterGroups)
@@ -97,7 +109,8 @@ namespace ExportToMySQL
                         filterBoxGroups.Selection.Add(ci);
                 }
             }
-
+            filterBoxGroups.selectAll = Properties.Settings.Default.FilterGroupsAll;
+#endif
             if (Properties.Settings.Default.FilterFields != null)
             {
                 foreach (string f in Properties.Settings.Default.FilterFields)
@@ -121,7 +134,6 @@ namespace ExportToMySQL
             filterBoxCategories.selectAll = Properties.Settings.Default.FilterCatsAll;
             filterBoxFields.selectAll = Properties.Settings.Default.FilterFieldsAll;
             filterBoxLocation.selectAll = Properties.Settings.Default.FilterLocationsAll;
-            filterBoxGroups.selectAll = Properties.Settings.Default.FilterGroupsAll;
 
             pauseUpdate = false;
             getFilteredReferences();
@@ -135,14 +147,15 @@ namespace ExportToMySQL
                 cats.Add(c.Name);
             }
             Properties.Settings.Default.FilterCats = cats;
-
+#if CITAVI5
             System.Collections.Specialized.StringCollection groups = new System.Collections.Specialized.StringCollection();
             foreach (SwissAcademic.Citavi.Group c in filterBoxGroups.Selection)
             {
                 groups.Add(c.Name);
             }
             Properties.Settings.Default.FilterGroups = groups;
-
+            Properties.Settings.Default.FilterGroupsAll = filterBoxGroups.selectAll;
+#endif
             System.Collections.Specialized.StringCollection fields = new System.Collections.Specialized.StringCollection();
             foreach (PropertyInfo f in filterBoxFields.Selection)
             {
@@ -160,7 +173,6 @@ namespace ExportToMySQL
             Properties.Settings.Default.FilterCatsAll = filterBoxCategories.selectAll;
             Properties.Settings.Default.FilterFieldsAll = filterBoxFields.selectAll;
             Properties.Settings.Default.FilterLocationsAll = filterBoxLocation.selectAll;
-            Properties.Settings.Default.FilterGroupsAll = filterBoxGroups.selectAll;
 
             Properties.Settings.Default.Save();
 
@@ -169,6 +181,8 @@ namespace ExportToMySQL
 
         void debugOutput(string Msg, int level = 0)
         {
+            if (level > debugLevel)
+                return;
             MessageBox.Show(Msg);
         }
 
@@ -225,12 +239,20 @@ namespace ExportToMySQL
 
             ProjectReferenceCollection refs = CitaviForm.Project.References;
             Category[] filteredCats = filterBoxCategories.Selection.OfType<Category>().ToArray();
+#if CITAVI5
             SwissAcademic.Citavi.Group[] filteredGroups = filterBoxGroups.Selection.OfType<SwissAcademic.Citavi.Group>().ToArray();
 
             var queryRefs =
                 from r in refs
                 where r.Categories.Intersect(filteredCats).Any() && r.Groups.Intersect(filteredGroups).Any()
                 select r;
+#endif
+#if CITAVI4
+            var queryRefs =
+                from r in refs
+                where r.Categories.Intersect(filteredCats).Any()
+                select r;
+#endif
 
             foreach (Reference r in queryRefs)
             {
@@ -336,7 +358,7 @@ namespace ExportToMySQL
                 }
                 catch
                 {
-                    debugOutput("SSH-Tunnel konnte nicht aufgebaut werden");
+                    debugOutput("SSH-Tunnel konnte nicht aufgebaut werden", 0);
                     return false;
                 }
             }
@@ -382,11 +404,11 @@ namespace ExportToMySQL
 
                         adapter.Update(FilteredReferences);
                     }
-                    debugOutput("Successful", 1);
+                    debugOutput("Successful", (noChange) ? 1 : 2);
                 }
                 catch (Exception ex)
                 {
-                    debugOutput(ex.Message.ToString());
+                    debugOutput(ex.Message.ToString(), 0);
                     return false;
                 }
             }
@@ -428,17 +450,17 @@ namespace ExportToMySQL
 
         private void onSaveSettingsClick(object sender, EventArgs e)
         {
-            if (saveSettings()) debugOutput("Saved");
+            if (saveSettings()) debugOutput("Saved", 1);
         }
 
         private void onSaveToDatabaseClick(object sender, EventArgs e)
         {
             if (FilteredReferences.GetChanges() == null)
             {
-                debugOutput("Keine Änderungen vorhanden");
+                debugOutput("Keine Änderungen vorhanden", 1);
                 return;
             }
-            if (updateTable()) debugOutput("Daten erfolgreich exportiert");
+            if (updateTable()) debugOutput("Daten erfolgreich exportiert", 1);
         }
 
         private void einstellungenExportierenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -476,7 +498,7 @@ namespace ExportToMySQL
             }
             catch (Exception ex)
             {
-                debugOutput("Fehler beim Import der Einstellungen: " + ex.Message);
+                debugOutput("Fehler beim Import der Einstellungen: " + ex.Message, 0);
             }
         }
     }

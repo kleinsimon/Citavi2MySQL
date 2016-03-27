@@ -15,6 +15,7 @@ namespace ExportToMySQL
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
+        private bool _disabled = false;
         public bool selectAll
         {
             get { return checkBoxAll.Checked; }
@@ -24,6 +25,18 @@ namespace ExportToMySQL
                 toggleControls(!value);
                 if (OnSelectionChanged != null)
                     OnSelectionChanged(this, new FilterBoxChangedEventArgs());
+            }
+        }
+        public bool Disabled
+        {
+            get
+            {
+                return _disabled;
+            }
+            set
+            {
+                _disabled = value;
+                this.Disabled = true;
             }
         }
         public IEnumerable<object> ItemList

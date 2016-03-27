@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using SwissAcademic.Citavi;
-using SwissAcademic.Citavi.Shell;
+﻿using SwissAcademic.Citavi.Shell;
 
 namespace ExportToMySQL
 {
@@ -19,10 +14,11 @@ namespace ExportToMySQL
         protected override void OnHostingFormLoaded(System.Windows.Forms.Form hostingForm)
         {
             MainForm ParentForm = (MainForm)hostingForm;
-            ParentForm.GetMainCommandbarManager().
+            SwissAcademic.Controls.CommandbarMenu menu = ParentForm.GetMainCommandbarManager().
                 GetReferenceEditorCommandbar(MainFormReferenceEditorCommandbarId.Menu).
-                GetCommandbarMenu(MainFormReferenceEditorCommandbarMenuId.Tools).
-                AddCommandbarButton("ExportAllTitlesToMysql", "Export To MySQL");
+                GetCommandbarMenu(MainFormReferenceEditorCommandbarMenuId.Tools);
+            menu.AddCommandbarButton("ExportAllTitlesToMysql", "MySQL Export Config");
+            menu.AddCommandbarButton("DoExportAllTitlesToMysql", "Export References MySQL");
 
             base.OnHostingFormLoaded(hostingForm);
         }
@@ -31,17 +27,24 @@ namespace ExportToMySQL
         {
             if (e.Key == "ExportAllTitlesToMysql")
             {
-                showDialog((MainForm) e.Form);
+                showDialog((MainForm)e.Form);
+                e.Handled = true;
+            }
+            else if (e.Key == "DoExportAllTitlesToMysql")
+            {
+                showDialog((MainForm)e.Form, true);
                 e.Handled = true;
             }
 
             base.OnBeforePerformingCommand(e);
         }
 
-        void showDialog(MainForm Form)
+
+        void showDialog(MainForm Form, bool silentMode = false)
         {
-            ActiveForm = new MysqlExportMain(Form);
-            ActiveForm.Show();
+            ActiveForm = new MysqlExportMain(Form, silentMode);
+            if (!silentMode)
+                ActiveForm.Show();
         }
     }
 }
