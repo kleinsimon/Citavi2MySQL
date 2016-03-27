@@ -54,22 +54,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Citavi">
-      <HintPath>C:\Program Files (x86)\Citavi 4\bin\Citavi.exe</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Program Files (x86)\Citavi 5\bin\Citavi.exe</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>.\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="SwissAcademic">
-      <HintPath>C:\Program Files (x86)\Citavi 4\bin\SwissAcademic.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Citavi 5\bin\SwissAcademic.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SwissAcademic.Citavi">
-      <HintPath>C:\Program Files (x86)\Citavi 4\bin\SwissAcademic.Citavi.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Citavi 5\bin\SwissAcademic.Citavi.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="SwissAcademic.Controls">
-      <HintPath>C:\Program Files (x86)\Citavi 4\bin\SwissAcademic.Controls.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Citavi 5\bin\SwissAcademic.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />

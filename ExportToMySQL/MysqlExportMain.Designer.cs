@@ -42,6 +42,7 @@
             this.filterBoxFields = new ExportToMySQL.FilterBox();
             this.filterBoxLocation = new ExportToMySQL.FilterBox();
             this.filterBoxCategories = new ExportToMySQL.FilterBox();
+            this.filterBoxGroups = new ExportToMySQL.FilterBox();
             this.saveFileDialogSettings = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialogSettings = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReferences)).BeginInit();
@@ -58,23 +59,26 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewReferences.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewReferences.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewReferences, 3);
-            this.dataGridViewReferences.Location = new System.Drawing.Point(3, 218);
+            this.tableLayoutPanel1.SetColumnSpan(this.dataGridViewReferences, 4);
+            this.dataGridViewReferences.Location = new System.Drawing.Point(4, 270);
+            this.dataGridViewReferences.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewReferences.MultiSelect = false;
             this.dataGridViewReferences.Name = "dataGridViewReferences";
             this.dataGridViewReferences.ReadOnly = true;
             this.dataGridViewReferences.ShowEditingIcon = false;
-            this.dataGridViewReferences.Size = new System.Drawing.Size(963, 414);
+            this.dataGridViewReferences.Size = new System.Drawing.Size(1284, 509);
             this.dataGridViewReferences.TabIndex = 9;
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveToolStripMenuItem,
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(969, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1292, 28);
             this.menuStrip1.TabIndex = 13;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -84,20 +88,20 @@
             this.filterSpeichernToolStripMenuItem,
             this.inDatenbankSpeichenrToolStripMenuItem});
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.saveToolStripMenuItem.Text = "Datei";
             // 
             // filterSpeichernToolStripMenuItem
             // 
             this.filterSpeichernToolStripMenuItem.Name = "filterSpeichernToolStripMenuItem";
-            this.filterSpeichernToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.filterSpeichernToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.filterSpeichernToolStripMenuItem.Text = "Filter Speichern";
             this.filterSpeichernToolStripMenuItem.Click += new System.EventHandler(this.onSaveSettingsClick);
             // 
             // inDatenbankSpeichenrToolStripMenuItem
             // 
             this.inDatenbankSpeichenrToolStripMenuItem.Name = "inDatenbankSpeichenrToolStripMenuItem";
-            this.inDatenbankSpeichenrToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
+            this.inDatenbankSpeichenrToolStripMenuItem.Size = new System.Drawing.Size(239, 26);
             this.inDatenbankSpeichenrToolStripMenuItem.Text = "In Datenbank speichern";
             this.inDatenbankSpeichenrToolStripMenuItem.Click += new System.EventHandler(this.onSaveToDatabaseClick);
             // 
@@ -108,47 +112,50 @@
             this.einstellungenExportierenToolStripMenuItem,
             this.einstellungenImportierenToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(109, 24);
             this.settingsToolStripMenuItem.Text = "Einstellungen";
             // 
             // mySQLSettingsToolStripMenuItem
             // 
             this.mySQLSettingsToolStripMenuItem.Name = "mySQLSettingsToolStripMenuItem";
-            this.mySQLSettingsToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.mySQLSettingsToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
             this.mySQLSettingsToolStripMenuItem.Text = "MySQL Einstellungen";
             this.mySQLSettingsToolStripMenuItem.Click += new System.EventHandler(this.onMysqlSettingsOpenClick);
             // 
             // einstellungenExportierenToolStripMenuItem
             // 
             this.einstellungenExportierenToolStripMenuItem.Name = "einstellungenExportierenToolStripMenuItem";
-            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.einstellungenExportierenToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
             this.einstellungenExportierenToolStripMenuItem.Text = "Einstellungen Exportieren";
             this.einstellungenExportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenExportierenToolStripMenuItem_Click);
             // 
             // einstellungenImportierenToolStripMenuItem
             // 
             this.einstellungenImportierenToolStripMenuItem.Name = "einstellungenImportierenToolStripMenuItem";
-            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.einstellungenImportierenToolStripMenuItem.Size = new System.Drawing.Size(254, 26);
             this.einstellungenImportierenToolStripMenuItem.Text = "Einstellungen Importieren";
             this.einstellungenImportierenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenImportierenToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34F));
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.dataGridViewReferences, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.filterBoxFields, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.filterBoxLocation, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.filterBoxFields, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.filterBoxLocation, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.filterBoxCategories, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.filterBoxGroups, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 34F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(969, 635);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1292, 783);
             this.tableLayoutPanel1.TabIndex = 15;
             // 
             // filterBoxFields
@@ -156,10 +163,11 @@
             this.filterBoxFields.DisplayMember = "";
             this.filterBoxFields.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBoxFields.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxFields.ItemList")));
-            this.filterBoxFields.Location = new System.Drawing.Point(641, 3);
+            this.filterBoxFields.Location = new System.Drawing.Point(974, 5);
+            this.filterBoxFields.Margin = new System.Windows.Forms.Padding(5);
             this.filterBoxFields.Name = "filterBoxFields";
             this.filterBoxFields.selectAll = false;
-            this.filterBoxFields.Size = new System.Drawing.Size(325, 209);
+            this.filterBoxFields.Size = new System.Drawing.Size(313, 256);
             this.filterBoxFields.TabIndex = 12;
             this.filterBoxFields.Title = "Exportierte Spalten";
             // 
@@ -168,10 +176,11 @@
             this.filterBoxLocation.DisplayMember = null;
             this.filterBoxLocation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBoxLocation.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxLocation.ItemList")));
-            this.filterBoxLocation.Location = new System.Drawing.Point(322, 3);
+            this.filterBoxLocation.Location = new System.Drawing.Point(651, 5);
+            this.filterBoxLocation.Margin = new System.Windows.Forms.Padding(5);
             this.filterBoxLocation.Name = "filterBoxLocation";
             this.filterBoxLocation.selectAll = false;
-            this.filterBoxLocation.Size = new System.Drawing.Size(313, 209);
+            this.filterBoxLocation.Size = new System.Drawing.Size(313, 256);
             this.filterBoxLocation.TabIndex = 14;
             this.filterBoxLocation.Title = "Exportierte Standorte";
             // 
@@ -180,12 +189,26 @@
             this.filterBoxCategories.DisplayMember = "";
             this.filterBoxCategories.Dock = System.Windows.Forms.DockStyle.Fill;
             this.filterBoxCategories.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxCategories.ItemList")));
-            this.filterBoxCategories.Location = new System.Drawing.Point(3, 3);
+            this.filterBoxCategories.Location = new System.Drawing.Point(5, 5);
+            this.filterBoxCategories.Margin = new System.Windows.Forms.Padding(5);
             this.filterBoxCategories.Name = "filterBoxCategories";
             this.filterBoxCategories.selectAll = false;
-            this.filterBoxCategories.Size = new System.Drawing.Size(313, 209);
+            this.filterBoxCategories.Size = new System.Drawing.Size(313, 256);
             this.filterBoxCategories.TabIndex = 11;
             this.filterBoxCategories.Title = "Kategorien Filter";
+            // 
+            // filterBoxGroups
+            // 
+            this.filterBoxGroups.DisplayMember = null;
+            this.filterBoxGroups.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.filterBoxGroups.ItemList = ((System.Collections.Generic.IEnumerable<object>)(resources.GetObject("filterBoxGroups.ItemList")));
+            this.filterBoxGroups.Location = new System.Drawing.Point(327, 4);
+            this.filterBoxGroups.Margin = new System.Windows.Forms.Padding(4);
+            this.filterBoxGroups.Name = "filterBoxGroups";
+            this.filterBoxGroups.selectAll = false;
+            this.filterBoxGroups.Size = new System.Drawing.Size(315, 258);
+            this.filterBoxGroups.TabIndex = 15;
+            this.filterBoxGroups.Title = "Gruppen Filter";
             // 
             // saveFileDialogSettings
             // 
@@ -202,12 +225,13 @@
             // 
             // MysqlExportMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 659);
+            this.ClientSize = new System.Drawing.Size(1292, 811);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MysqlExportMain";
             this.Text = "MysqlExportMain";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewReferences)).EndInit();
@@ -223,7 +247,6 @@
 
         private System.Windows.Forms.DataGridView dataGridViewReferences;
         private FilterBox filterBoxCategories;
-        private FilterBox filterBoxFields;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mySQLSettingsToolStripMenuItem;
@@ -236,5 +259,7 @@
         private System.Windows.Forms.ToolStripMenuItem einstellungenImportierenToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogSettings;
         private System.Windows.Forms.OpenFileDialog openFileDialogSettings;
+        private FilterBox filterBoxFields;
+        private FilterBox filterBoxGroups;
     }
 }
