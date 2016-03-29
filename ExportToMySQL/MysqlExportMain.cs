@@ -54,6 +54,7 @@ namespace ExportToMySQL
             filterBoxGroups.ItemList = CitaviForm.Project.Groups;
             filterBoxGroups.DisplayMember = "FullName";
             filterBoxGroups.OnSelectionChanged += FilterBoxGroups_OnSelectionChanged;
+            filterBoxGroups.OnModifierChanged += FilterBoxGroups_OnModifierChanged;
 #endif
 #if CITAVI4
             filterBoxGroups.Disabled = true;
@@ -198,19 +199,25 @@ namespace ExportToMySQL
             FilteredReferences.Columns.Add("Group");
         }
 
-        void filterBoxCategories_OnSelectionChanged(object source, FilterBoxChangedEventArgs e)
+        void filterBoxCategories_OnSelectionChanged(object source, EventArgs e)
         {
             if (!pauseUpdate)
                 getFilteredReferences();
         }
 
-        private void FilterBoxGroups_OnSelectionChanged(object source, FilterBoxChangedEventArgs e)
+        private void FilterBoxGroups_OnSelectionChanged(object source, EventArgs e)
         {
             if (!pauseUpdate)
                 getFilteredReferences();
         }
 
-        void filterBoxFields_OnSelectionChanged(object source, FilterBoxChangedEventArgs e)
+        private void FilterBoxGroups_OnModifierChanged(object source, EventArgs e)
+        {
+            if (!pauseUpdate)
+                getFilteredReferences();
+        }
+
+        void filterBoxFields_OnSelectionChanged(object source, EventArgs e)
         {
             if (!pauseUpdate)
                 updateFields();
@@ -241,11 +248,21 @@ namespace ExportToMySQL
             Category[] filteredCats = filterBoxCategories.Selection.OfType<Category>().ToArray();
 #if CITAVI5
             SwissAcademic.Citavi.Group[] filteredGroups = filterBoxGroups.Selection.OfType<SwissAcademic.Citavi.Group>().ToArray();
-
-            var queryRefs =
-                from r in refs
-                where r.Categories.Intersect(filteredCats).Any() && r.Groups.Intersect(filteredGroups).Any()
-                select r;
+            IEnumerable<Reference> queryRefs = null;
+            if (filterBoxGroups.Modifier == FilterBox.Modifiers.Und)
+            {
+                queryRefs =
+                    from r in refs
+                    where r.Categories.Intersect(filteredCats).Any() && r.Groups.Intersect(filteredGroups).Any()
+                    select r;
+            }
+            else if (filterBoxGroups.Modifier == FilterBox.Modifiers.Oder)
+            {
+                queryRefs =
+                    from r in refs
+                    where r.Categories.Intersect(filteredCats).Any() || r.Groups.Intersect(filteredGroups).Any()
+                    select r;
+            }
 #endif
 #if CITAVI4
             var queryRefs =

@@ -1,42 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ExportToMySQL
 {
     public partial class FilterBox : UserControl
     {
+        public enum Modifiers { Und, Oder }
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
-        private bool _disabled = false;
+        private bool _disabled, _hideGroup;
+        private Modifiers _curMod = Modifiers.Und;
+        public bool HideGroupPanel
+        {
+            get { return _hideGroup; }
+            set
+            {
+                _hideGroup = value;
+                if (value)
+                {
+                    groupBoxAll.Visible = false;
+                    tableLayoutPanel1.Parent = this;
+                }
+                else
+                {
+                    groupBoxAll.Visible = true;
+                    tableLayoutPanel1.Parent = groupBoxAll;
+                }
+
+            }
+        }
+        public Modifiers Modifier
+        {
+            get { return _curMod; }
+            set
+            {
+                if (!DesignMode)
+                {
+                    _curMod = value;
+                    buttonMod.Text = value.ToString();
+                    OnModifierChanged(this, new EventArgs());
+                }
+            }
+        }
+        public bool ShowModifier
+        {
+            get { return buttonMod.Visible; }
+            set { buttonMod.Visible = value; }
+        }
         public bool selectAll
         {
             get { return checkBoxAll.Checked; }
             set
             {
-                checkBoxAll.Checked = value;
-                toggleControls(!value);
-                if (OnSelectionChanged != null)
-                    OnSelectionChanged(this, new FilterBoxChangedEventArgs());
+                if (!DesignMode)
+                {
+                    checkBoxAll.Checked = value;
+                    toggleControls(!value);
+                    if (OnSelectionChanged != null)
+                        OnSelectionChanged(this, new EventArgs());
+                }
             }
         }
         public bool Disabled
         {
-            get
-            {
-                return _disabled;
-            }
+            get { return _disabled; }
             set
             {
-                _disabled = value;
-                this.Disabled = true;
+                if (!DesignMode)
+                {
+                    _disabled = value;
+                    this.Disabled = value;
+                }
             }
         }
         public IEnumerable<object> ItemList
@@ -44,8 +82,11 @@ namespace ExportToMySQL
             get { return _itemlist; }
             set
             {
-                _itemlist = value.ToList();
-                listBoxAllItems.DataSource = _itemlist;
+                if (!DesignMode)
+                {
+                    _itemlist = value.ToList();
+                    listBoxAllItems.DataSource = _itemlist;
+                }
             }
         }
         public BindingList<object> Selection
@@ -64,7 +105,10 @@ namespace ExportToMySQL
         public string Title
         {
             get { return groupBoxAll.Text; }
-            set { groupBoxAll.Text = value; }
+            set
+            {
+                groupBoxAll.Text = value;
+            }
         }
         public string DisplayMember
         {
@@ -74,19 +118,28 @@ namespace ExportToMySQL
             }
             set
             {
-                _displaymember = value;
-                setDisplayMember();
+                if (!DesignMode)
+                {
+                    _displaymember = value;
+                    setDisplayMember();
+                }
             }
         }
-        public delegate void FilterBoxChangedEventHandler(object source, FilterBoxChangedEventArgs e);
+        public delegate void FilterBoxChangedEventHandler(object source, EventArgs e);
         public event FilterBoxChangedEventHandler OnSelectionChanged;
+
+        public delegate void FilterBoxModChangedEventHandler(object source, EventArgs e);
+        public event FilterBoxModChangedEventHandler OnModifierChanged;
 
         public FilterBox()
         {
             InitializeComponent();
-            listBoxSelectedItems.DataSource = _selection;
-            listBoxSelectedItems.DisplayMember = "Name";
-            _selection.ListChanged += _selection_ListChanged;
+            if (!DesignMode)
+            {
+                listBoxSelectedItems.DataSource = _selection;
+                listBoxSelectedItems.DisplayMember = "Name";
+                _selection.ListChanged += _selection_ListChanged;
+            }
         }
 
         void setDisplayMember()
@@ -100,7 +153,7 @@ namespace ExportToMySQL
             listBoxSelectedItems.DisplayMember = listBoxAllItems.DisplayMember;
             if (OnSelectionChanged != null)
             {
-                OnSelectionChanged(this, new FilterBoxChangedEventArgs());
+                OnSelectionChanged(this, new EventArgs());
             }
         }
 
@@ -115,7 +168,7 @@ namespace ExportToMySQL
             }
 
             var query = from item in _itemlist
-                        let itemText=item.ToString().ToUpper()
+                        let itemText = item.ToString().ToUpper()
                         where itemText.Contains(filter)
                         orderby Levenshtein.CalculateDistance(itemText, filter)
                         select item;
@@ -187,11 +240,14 @@ namespace ExportToMySQL
         {
             selectAll = checkBoxAll.Checked;
         }
-    }
 
-    public class FilterBoxChangedEventArgs : EventArgs
-    {
-
+        private void buttonMod_Click(object sender, EventArgs e)
+        {
+            if (_curMod == Modifiers.Und)
+                Modifier = Modifiers.Oder;
+            if (_curMod == Modifiers.Oder)
+                Modifier = Modifiers.Und;
+        }
     }
 
     public static class Levenshtein

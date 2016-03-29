@@ -39,6 +39,7 @@
             this.buttonAddCategory = new System.Windows.Forms.Button();
             this.buttonRemoveCategory = new System.Windows.Forms.Button();
             this.buttonClearCategories = new System.Windows.Forms.Button();
+            this.buttonMod = new System.Windows.Forms.Button();
             this.groupBoxAll.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -153,6 +154,7 @@
             this.flowLayoutPanel1.Controls.Add(this.buttonAddCategory);
             this.flowLayoutPanel1.Controls.Add(this.buttonRemoveCategory);
             this.flowLayoutPanel1.Controls.Add(this.buttonClearCategories);
+            this.flowLayoutPanel1.Controls.Add(this.buttonMod);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(123, 34);
@@ -194,6 +196,18 @@
             this.buttonClearCategories.UseVisualStyleBackColor = true;
             this.buttonClearCategories.Click += new System.EventHandler(this.buttonClearCategories_Click);
             // 
+            // buttonMod
+            // 
+            this.buttonMod.Location = new System.Drawing.Point(4, 112);
+            this.buttonMod.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMod.Name = "buttonMod";
+            this.buttonMod.Size = new System.Drawing.Size(47, 28);
+            this.buttonMod.TabIndex = 8;
+            this.buttonMod.Text = "Und";
+            this.buttonMod.UseVisualStyleBackColor = true;
+            this.buttonMod.Visible = false;
+            this.buttonMod.Click += new System.EventHandler(this.buttonMod_Click);
+            // 
             // FilterBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -223,5 +237,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBoxAll;
+        private System.Windows.Forms.Button buttonMod;
     }
 }
