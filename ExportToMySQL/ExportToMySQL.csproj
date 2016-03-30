@@ -115,11 +115,26 @@
     <Compile Include="TypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="FilterBox.de.resx">
+      <DependentUpon>FilterBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FilterBox.en.resx">
+      <DependentUpon>FilterBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FilterBox.resx">
       <DependentUpon>FilterBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MysqlExportMain.de.resx">
+      <DependentUpon>MysqlExportMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MysqlExportMain.en.resx">
+      <DependentUpon>MysqlExportMain.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MysqlExportMain.resx">
       <DependentUpon>MysqlExportMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="settings.de.resx">
+      <DependentUpon>settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="settings.resx">
       <DependentUpon>settings.cs</DependentUpon>

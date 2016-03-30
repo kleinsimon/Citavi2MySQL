@@ -256,7 +256,7 @@ namespace ExportToMySQL
 
             IEnumerable<Reference> queryRefs = null;
 
-            if (curMod == FilterBox.Modifiers.Oder)
+            if (curMod == FilterBox.Modifiers.Or)
             {
                 queryRefs =
                          from r in refs

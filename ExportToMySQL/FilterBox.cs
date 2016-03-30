@@ -8,12 +8,12 @@ namespace ExportToMySQL
 {
     public partial class FilterBox : UserControl
     {
-        public enum Modifiers { Und, Oder }
+        public enum Modifiers { And, Or }
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
         private bool _hideGroup;
-        private Modifiers _curMod = Modifiers.Und;
+        private Modifiers _curMod = Modifiers.And;
         public bool HideGroupPanel
         {
             get { return _hideGroup; }
@@ -39,9 +39,9 @@ namespace ExportToMySQL
             set
             {
                 _curMod = value;
+                buttonMod.Text = value.ToString();
                 if (!DesignMode)
                 { 
-                    buttonMod.Text = value.ToString();
                     if (OnModifierChanged != null)
                         OnModifierChanged(this, new EventArgs());
                 }
@@ -232,10 +232,10 @@ namespace ExportToMySQL
 
         private void buttonMod_Click(object sender, EventArgs e)
         {
-            if (Modifier == Modifiers.Und)
-                Modifier = Modifiers.Oder;
-            if (Modifier == Modifiers.Oder)
-                Modifier = Modifiers.Und;
+            if (Modifier == Modifiers.And)
+                Modifier = Modifiers.Or;
+            else if (Modifier == Modifiers.Or)
+                Modifier = Modifiers.And;
         }
     }
 
