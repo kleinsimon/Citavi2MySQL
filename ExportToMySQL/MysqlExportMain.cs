@@ -23,7 +23,6 @@ namespace ExportToMySQL
         DataTable FilteredReferences = new DataTable();
         List<PropertyInfo> ReferenceFields = new List<PropertyInfo>();
         MySqlConnectionStringBuilder sqlconn = new MySqlConnectionStringBuilder();
-        Type[] allowed = { typeof(string), typeof(ReferencePersonCollection), typeof(ReferenceLocationCollection), typeof(ReferenceType), typeof(Periodical) };
         bool pauseUpdate = false;
         bool silentMode = false;
         int debugLevel = 1;
@@ -69,14 +68,18 @@ namespace ExportToMySQL
 
             loadSettings();
 
-            dataGridViewReferences.AutoGenerateColumns = false;
-            dataGridViewReferences.DataSource = FilteredReferences;
-            dataGridViewReferences.DoubleBuffered(true);
-            updateFields();
-
-            ResumeLayout();
-            if (silentMode)
+            if (!silentMode)
             {
+                dataGridViewReferences.AutoGenerateColumns = false;
+                dataGridViewReferences.DataSource = FilteredReferences;
+                dataGridViewReferences.DoubleBuffered(true);
+
+                updateFields();
+                ResumeLayout();
+            }
+            else
+            {
+                updateFields();
                 updateTable();
             }
         }
@@ -100,7 +103,7 @@ namespace ExportToMySQL
                         filterBoxCategories.Selection.Add(ci);
                 }
             }
-#if CITAVI5
+#if !CITAVI4
             if (Properties.Settings.Default.FilterGroups != null)
             {
                 foreach (string c in Properties.Settings.Default.FilterGroups)
@@ -148,7 +151,7 @@ namespace ExportToMySQL
                 cats.Add(c.Name);
             }
             Properties.Settings.Default.FilterCats = cats;
-#if CITAVI5
+#if !CITAVI4
             System.Collections.Specialized.StringCollection groups = new System.Collections.Specialized.StringCollection();
             foreach (SwissAcademic.Citavi.Group c in filterBoxGroups.Selection)
             {
@@ -247,7 +250,7 @@ namespace ExportToMySQL
 
             ProjectReferenceCollection refs = CitaviForm.Project.References;
             Category[] filteredCats = filterBoxCategories.Selection.OfType<Category>().ToArray();
-#if CITAVI5
+#if !CITAVI4
             SwissAcademic.Citavi.Group[] filteredGroups = filterBoxGroups.Selection.OfType<SwissAcademic.Citavi.Group>().ToArray();
             FilterBox.Modifiers curMod = filterBoxGroups.Modifier;
 
@@ -271,8 +274,7 @@ namespace ExportToMySQL
                          where (filterBoxGroups.selectAll || r.Groups.Intersect(filteredGroups).Any())
                          select r;
             }
-#endif
-#if CITAVI4
+#else
             var queryRefs =
                 from r in refs
                 where (filterBoxCategories.selectAll || r.Categories.Intersect(filteredCats).Any())
@@ -286,82 +288,10 @@ namespace ExportToMySQL
 
                 foreach (PropertyInfo p in filterBoxFields.Selection)
                 {
-                    object property = p.GetValue(r);
-                    if (p.PropertyType == typeof(string))
-                        nr[p.Name] = (string)property;
-
-                    else if (p.PropertyType == typeof(ReferencePersonCollection))
-                    {
-                        ReferencePersonCollection ptmp = (ReferencePersonCollection)property;
-                        if (ptmp != null)
-                        {
-                            foreach (Person person in ptmp)
-                            {
-                                if (nr[p.Name] != DBNull.Value)
-                                    nr[p.Name] += "; ";
-                                nr[p.Name] += person.LastName + ", " + Regex.Replace(person.FirstName, @"(\w)\w+[^.]", @"$1."); ;
-                            }
-                        }
-                    }
-
-                    else if (p.PropertyType == typeof(ReferenceLocationCollection))
-                    {
-                        ReferenceLocationCollection ptmp = (ReferenceLocationCollection)property;
-                        if (ptmp != null)
-                        {
-                            foreach (Location l in ptmp)
-                            {
-                                if (filterBoxLocation.Selection.Contains(l.Library))
-                                {
-                                    if (nr[p.Name] != DBNull.Value)
-                                        nr[p.Name] += ";";
-                                    nr[p.Name] += l.FullName;
-                                }
-                            }
-                        }
-                    }
-
-                    else if (p.PropertyType == typeof(Periodical))
-                    {
-                        Periodical ptmp = ((Periodical)property);
-                        if (ptmp != null)
-                            nr[p.Name] = ptmp.Name;
-                    }
-                    else if (p.PropertyType == typeof(Reference))
-                    {
-                        Reference ptmp = ((Reference)property);
-                        if (ptmp != null)
-                            nr[p.Name] = ptmp.Title;
-                    }
-                    else
-                    {
-                        if (property != null)
-                        {
-                            PropertyInfo propinf = null;
-                            MethodInfo meminf = null;
-                            try
-                            {
-                                if (property.GetType().HasProperty("FullName"))
-                                    propinf = property.GetType().GetProperty("FullName");
-                                else if (property.GetType().HasProperty("Name"))
-                                    propinf = property.GetType().GetProperty("Name");
-                            }
-                            catch { }
-                            //try
-                            //{
-                            //    meminf = property.GetType().GetMethod("ToString");
-                            //}
-                            //catch { }
-                            if (propinf != null)
-                            {
-                                nr[p.Name] = (string)propinf.GetValue(property);
-                            }
-                            //else if (meminf != null)
-                            //{
-                            //    nr[p.Name] = (string)meminf.Invoke(property, null);
-                            //}
-                        }
-                    }
+                    dynamic property = p.GetValue(r);
+                    string c = CitaviTypeConverter.doConvert(property);
+                    if (c != "")
+                        nr[p.Name] = c;
                 }
 
             }

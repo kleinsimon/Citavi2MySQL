@@ -57,6 +57,7 @@
       <HintPath>C:\Program Files (x86)\Citavi 5\bin\Citavi.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data">
       <HintPath>.\MySql.Data.dll</HintPath>
     </Reference>
@@ -111,6 +112,7 @@
       <DependentUpon>settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings1.cs" />
+    <Compile Include="TypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FilterBox.resx">
