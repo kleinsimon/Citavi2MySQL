@@ -12,7 +12,7 @@ namespace ExportToMySQL
         private List<object> _itemlist = new List<object>();
         private BindingList<object> _selection = new BindingList<object>();
         private string _displaymember;
-        private bool _disabled, _hideGroup;
+        private bool _hideGroup;
         private Modifiers _curMod = Modifiers.Und;
         public bool HideGroupPanel
         {
@@ -38,11 +38,12 @@ namespace ExportToMySQL
             get { return _curMod; }
             set
             {
+                _curMod = value;
                 if (!DesignMode)
-                {
-                    _curMod = value;
+                { 
                     buttonMod.Text = value.ToString();
-                    OnModifierChanged(this, new EventArgs());
+                    if (OnModifierChanged != null)
+                        OnModifierChanged(this, new EventArgs());
                 }
             }
         }
@@ -62,18 +63,6 @@ namespace ExportToMySQL
                     toggleControls(!value);
                     if (OnSelectionChanged != null)
                         OnSelectionChanged(this, new EventArgs());
-                }
-            }
-        }
-        public bool Disabled
-        {
-            get { return _disabled; }
-            set
-            {
-                if (!DesignMode)
-                {
-                    _disabled = value;
-                    this.Disabled = value;
                 }
             }
         }
@@ -243,9 +232,9 @@ namespace ExportToMySQL
 
         private void buttonMod_Click(object sender, EventArgs e)
         {
-            if (_curMod == Modifiers.Und)
+            if (Modifier == Modifiers.Und)
                 Modifier = Modifiers.Oder;
-            if (_curMod == Modifiers.Oder)
+            if (Modifier == Modifiers.Oder)
                 Modifier = Modifiers.Und;
         }
     }

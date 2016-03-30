@@ -57,7 +57,7 @@ namespace ExportToMySQL
             filterBoxGroups.OnModifierChanged += FilterBoxGroups_OnModifierChanged;
 #endif
 #if CITAVI4
-            filterBoxGroups.Disabled = true;
+            filterBoxGroups.Enabled = false;
             //filterBoxGroups.Dispose();
             //tableLayoutPanel1.SetColumn(filterBoxLocation);
 #endif
@@ -193,7 +193,7 @@ namespace ExportToMySQL
             FilteredReferences.Columns.Clear();
             foreach (PropertyInfo p in ReferenceFields)
             {
-                FilteredReferences.Columns.Add(p.Name);
+                DataColumn dc = FilteredReferences.Columns.Add(p.Name);
             }
             FilteredReferences.Columns.Add("Category");
             FilteredReferences.Columns.Add("Group");
@@ -234,6 +234,7 @@ namespace ExportToMySQL
                 col.Name = p.Name;
                 col.HeaderText = p.Name;
                 col.DataPropertyName = p.Name;
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 dgv.Columns.Add(col);
             }
             getFilteredReferences();
@@ -248,26 +249,33 @@ namespace ExportToMySQL
             Category[] filteredCats = filterBoxCategories.Selection.OfType<Category>().ToArray();
 #if CITAVI5
             SwissAcademic.Citavi.Group[] filteredGroups = filterBoxGroups.Selection.OfType<SwissAcademic.Citavi.Group>().ToArray();
+            FilterBox.Modifiers curMod = filterBoxGroups.Modifier;
+
             IEnumerable<Reference> queryRefs = null;
-            if (filterBoxGroups.Modifier == FilterBox.Modifiers.Und)
+
+            if (curMod == FilterBox.Modifiers.Oder)
             {
                 queryRefs =
-                    from r in refs
-                    where r.Categories.Intersect(filteredCats).Any() && r.Groups.Intersect(filteredGroups).Any()
-                    select r;
+                         from r in refs
+                         where
+                         (filterBoxCategories.selectAll || r.Categories.Intersect(filteredCats).Any())
+                         ||
+                         (filterBoxGroups.selectAll || r.Groups.Intersect(filteredGroups).Any())
+                         select r;
             }
-            else if (filterBoxGroups.Modifier == FilterBox.Modifiers.Oder)
+            else
             {
                 queryRefs =
-                    from r in refs
-                    where r.Categories.Intersect(filteredCats).Any() || r.Groups.Intersect(filteredGroups).Any()
-                    select r;
+                         from r in refs
+                         where (filterBoxCategories.selectAll || r.Categories.Intersect(filteredCats).Any())
+                         where (filterBoxGroups.selectAll || r.Groups.Intersect(filteredGroups).Any())
+                         select r;
             }
 #endif
 #if CITAVI4
             var queryRefs =
                 from r in refs
-                where r.Categories.Intersect(filteredCats).Any()
+                where (filterBoxCategories.selectAll || r.Categories.Intersect(filteredCats).Any())
                 select r;
 #endif
 
@@ -284,25 +292,31 @@ namespace ExportToMySQL
 
                     else if (p.PropertyType == typeof(ReferencePersonCollection))
                     {
-                        foreach (Person person in (ReferencePersonCollection)property)
+                        ReferencePersonCollection ptmp = (ReferencePersonCollection)property;
+                        if (ptmp != null)
                         {
-                            if (nr[p.Name] != DBNull.Value)
-                                nr[p.Name] += "; ";
-                            nr[p.Name] += person.LastName + ", " + Regex.Replace(person.FirstName, @"(\w)\w+[^.]", @"$1."); ;
+                            foreach (Person person in ptmp)
+                            {
+                                if (nr[p.Name] != DBNull.Value)
+                                    nr[p.Name] += "; ";
+                                nr[p.Name] += person.LastName + ", " + Regex.Replace(person.FirstName, @"(\w)\w+[^.]", @"$1."); ;
+                            }
                         }
-
                     }
 
                     else if (p.PropertyType == typeof(ReferenceLocationCollection))
                     {
                         ReferenceLocationCollection ptmp = (ReferenceLocationCollection)property;
-                        foreach (Location l in ptmp)
+                        if (ptmp != null)
                         {
-                            if (filterBoxLocation.Selection.Contains(l.Library))
+                            foreach (Location l in ptmp)
                             {
-                                if (nr[p.Name] != DBNull.Value)
-                                    nr[p.Name] += ";";
-                                nr[p.Name] += l.FullName;
+                                if (filterBoxLocation.Selection.Contains(l.Library))
+                                {
+                                    if (nr[p.Name] != DBNull.Value)
+                                        nr[p.Name] += ";";
+                                    nr[p.Name] += l.FullName;
+                                }
                             }
                         }
                     }
@@ -321,25 +335,31 @@ namespace ExportToMySQL
                     }
                     else
                     {
-                        PropertyInfo propinf = null;
-                        MethodInfo meminf = null;
-                        try
+                        if (property != null)
                         {
-                            propinf = property.GetType().GetProperty("Name");
-                        }
-                        catch { }
-                        try
-                        {
-                            meminf = property.GetType().GetMethod("ToString");
-                        }
-                        catch { }
-                        if (propinf != null)
-                        {
-                            nr[p.Name] = (string)propinf.GetValue(property);
-                        }
-                        else if (meminf != null)
-                        {
-                            nr[p.Name] = (string)meminf.Invoke(property, null);
+                            PropertyInfo propinf = null;
+                            MethodInfo meminf = null;
+                            try
+                            {
+                                if (property.GetType().HasProperty("FullName"))
+                                    propinf = property.GetType().GetProperty("FullName");
+                                else if (property.GetType().HasProperty("Name"))
+                                    propinf = property.GetType().GetProperty("Name");
+                            }
+                            catch { }
+                            //try
+                            //{
+                            //    meminf = property.GetType().GetMethod("ToString");
+                            //}
+                            //catch { }
+                            if (propinf != null)
+                            {
+                                nr[p.Name] = (string)propinf.GetValue(property);
+                            }
+                            //else if (meminf != null)
+                            //{
+                            //    nr[p.Name] = (string)meminf.Invoke(property, null);
+                            //}
                         }
                     }
                 }

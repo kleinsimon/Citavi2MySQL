@@ -34,8 +34,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>C:\Users\sk\Documents\Citavi 5\AddOns\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>C:\Program Files %28x86%29\Citavi 5\AddOns\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;CITAVI5</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
