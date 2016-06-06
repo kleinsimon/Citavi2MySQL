@@ -289,6 +289,11 @@ namespace ExportToMySQL
                 foreach (PropertyInfo p in filterBoxFields.Selection)
                 {
                     dynamic property = p.GetValue(r);
+                    if (property is IEnumerable<Location>)
+                    {
+                        IEnumerable<Location> locs = ((IEnumerable<Location>)property);
+                        property = locs.Where(x => filterBoxLocation.Selection.Contains(x.Library));
+                    }
                     string c = CitaviTypeConverter.doConvert(property);
                     if (c != "")
                         nr[p.Name] = c;
