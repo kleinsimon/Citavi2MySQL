@@ -6,11 +6,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 using System.Configuration;
 using System.Xml.Linq;
 using System.Xml.XPath;
-
 using MySql.Data.MySqlClient;
 using SwissAcademic.Citavi;
 using SwissAcademic.Citavi.Shell;
@@ -49,7 +47,7 @@ namespace ExportToMySQL
             filterBoxCategories.ItemList = CitaviForm.Project.AllCategories;
             filterBoxCategories.DisplayMember = "FullName";
             filterBoxCategories.OnSelectionChanged += filterBoxCategories_OnSelectionChanged;
-#if CITAVI5
+#if !CITAVI4
             filterBoxGroups.ItemList = CitaviForm.Project.Groups;
             filterBoxGroups.DisplayMember = "FullName";
             filterBoxGroups.OnSelectionChanged += FilterBoxGroups_OnSelectionChanged;
