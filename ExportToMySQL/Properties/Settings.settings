@@ -74,5 +74,8 @@
     <Setting Name="FilterGroups" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="FilterGroupsMod" Type="System.String" Scope="User">
+      <Value Profile="(Default)">And</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

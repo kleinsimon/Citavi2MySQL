@@ -165,8 +165,11 @@
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;buttonClearCategories.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddCategory.Name" xml:space="preserve">
+    <value>buttonAddCategory</value>
   </data>
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>129, 34</value>
@@ -176,9 +179,6 @@
   </data>
   <data name="&gt;&gt;textBoxFilter.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonAddCategory.Name" xml:space="preserve">
-    <value>buttonAddCategory</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
     <value>groupBoxAll</value>
@@ -192,14 +192,14 @@
   <data name="buttonAddCategory.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 28</value>
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
   <data name="&gt;&gt;textBoxFilter.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>8, 16</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.ZOrder" xml:space="preserve">
+    <value>4</value>
   </data>
   <data name="listBoxAllItems.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 196</value>
@@ -231,8 +231,8 @@
   <data name="listBoxSelectedItems.Location" type="System.Drawing.Point, System.Drawing">
     <value>192, 34</value>
   </data>
-  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
+  <data name="buttonMod.Text" xml:space="preserve">
+    <value>Und</value>
   </data>
   <data name="&gt;&gt;label1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -255,6 +255,9 @@
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>60, 17</value>
   </data>
+  <data name="&gt;&gt;groupBoxAll.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="listBoxSelectedItems.Size" type="System.Drawing.Size, System.Drawing">
     <value>117, 196</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="tableLayoutPanel1.ColumnCount" type="System.Int32, mscorlib">
     <value>3</value>
+  </data>
+  <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;buttonMod.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -275,9 +281,6 @@
   </data>
   <data name="listBoxSelectedItems.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>313, 239</value>
   </data>
   <data name="buttonMod.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -333,8 +336,8 @@
   <data name="buttonClearCategories.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 76</value>
   </data>
-  <data name="&gt;&gt;buttonMod.Name" xml:space="preserve">
-    <value>buttonMod</value>
+  <data name="flowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="&gt;&gt;buttonAddCategory.Parent" xml:space="preserve">
     <value>flowLayoutPanel1</value>
@@ -345,8 +348,8 @@
   <data name="buttonMod.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;buttonMod.Name" xml:space="preserve">
+    <value>buttonMod</value>
   </data>
   <data name="listBoxAllItems.ItemHeight" type="System.Int32, mscorlib">
     <value>16</value>
@@ -357,8 +360,8 @@
   <data name="&gt;&gt;buttonRemoveCategory.Name" xml:space="preserve">
     <value>buttonRemoveCategory</value>
   </data>
-  <data name="&gt;&gt;groupBoxAll.Type" xml:space="preserve">
-    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -366,17 +369,17 @@
   <data name="flowLayoutPanel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="buttonMod.Text" xml:space="preserve">
-    <value>Und</value>
+  <data name="&gt;&gt;groupBoxAll.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="&gt;&gt;listBoxAllItems.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
+  <data name="&gt;&gt;buttonMod.Parent" xml:space="preserve">
+    <value>flowLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Name" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;buttonMod.Parent" xml:space="preserve">
-    <value>flowLayoutPanel1</value>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;buttonClearCategories.Name" xml:space="preserve">
     <value>buttonClearCategories</value>
@@ -414,8 +417,8 @@
   <data name="buttonAddCategory.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="flowLayoutPanel1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>313, 239</value>
   </data>
   <data name="&gt;&gt;listBoxSelectedItems.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -447,8 +450,8 @@
   <data name="groupBoxAll.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="buttonRemoveCategory.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 40</value>
+  <data name="&gt;&gt;listBoxAllItems.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;buttonAddCategory.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -465,20 +468,17 @@
   <data name="&gt;&gt;groupBoxAll.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;listBoxAllItems.Name" xml:space="preserve">
-    <value>listBoxAllItems</value>
-  </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.UserControl, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.Name" xml:space="preserve">
     <value>flowLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;groupBoxAll.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;listBoxAllItems.Name" xml:space="preserve">
+    <value>listBoxAllItems</value>
   </data>
-  <data name="&gt;&gt;buttonClearCategories.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="buttonRemoveCategory.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 40</value>
   </data>
   <data name="checkBoxAll.Size" type="System.Drawing.Size, System.Drawing">
     <value>53, 21</value>

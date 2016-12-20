@@ -306,5 +306,17 @@ namespace ExportToMySQL.Properties {
                 this["FilterGroups"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("And")]
+        public string FilterGroupsMod {
+            get {
+                return ((string)(this["FilterGroupsMod"]));
+            }
+            set {
+                this["FilterGroupsMod"] = value;
+            }
+        }
     }
 }

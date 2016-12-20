@@ -112,6 +112,10 @@ namespace ExportToMySQL
                 }
             }
             filterBoxGroups.selectAll = Properties.Settings.Default.FilterGroupsAll;
+            FilterBox.Modifiers mod = FilterBox.Modifiers.And;
+            Enum.TryParse<FilterBox.Modifiers>(Properties.Settings.Default.FilterGroupsMod, true, out mod);
+
+            filterBoxGroups.Modifier = mod;
 #endif
             if (Properties.Settings.Default.FilterFields != null)
             {
@@ -157,6 +161,7 @@ namespace ExportToMySQL
             }
             Properties.Settings.Default.FilterGroups = groups;
             Properties.Settings.Default.FilterGroupsAll = filterBoxGroups.selectAll;
+            Properties.Settings.Default.FilterGroupsMod = filterBoxGroups.Modifier.ToString();
 #endif
             System.Collections.Specialized.StringCollection fields = new System.Collections.Specialized.StringCollection();
             foreach (PropertyInfo f in filterBoxFields.Selection)
